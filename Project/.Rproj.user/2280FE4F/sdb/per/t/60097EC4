@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "lib=c('tm','plyr','class','stringr','wordcloud')\nlapply(lib,require,character.only=T)\nsetwd(\"C:\\\\Users\\\\nirva\\\\IdeaProjects\\\\R\\\\Whatsapp chat analysis\")\n\ntext=readLines(\"depressing story.txt\")\ntext1=gsub(\" ?(f|ht)tp(s?)://(.*)[.|/|&|=][a-zA-z0-9|-]*\", \"\", text)\ntext2=gsub(\"[0-9]{2}/[0-9]{2}/[0-9]{4}, .*[:]\",replacement = \" \",text1)\ntext3=gsub(pattern = \"\\\\W\",replacement = \" \",text2)\ntext4= iconv(text3,\"latin1\",\"ASCII\",sub = \"\")\ntext5=tolower(text4)\ntext6=gsub(\"\\\\d\",replacement = \"\",text5)\ntext7=removeWords(text6,stopwords('en'))\ntext7=removeWords(text7,c('media','omitted','hai'))\ntext8=gsub(\"\\\\b[A-z]\\\\b{1}\",replacement = \"\",text7)\n\ntext9=stripWhitespace(text8)\ntext9=paste(text9,collapse = \" \",sep = \" \")\nwords=str_split(text9,pattern = \"\\\\s+\")\nwords=unlist(words)\nwordcloud(words,random.order=FALSE,max.words = 200, rot.per=0.35, \n          colors=brewer.pal(8, \"Dark2\"))\npos.words=scan('positive-words.txt',what = 'character',comment.char = \";\")\nneg.words=scan('negative-words.txt',what = 'character',comment.char = \";\")\n\nsentimental_score=sum(!is.na(match(words,pos.words)))-sum(!is.na(match(words,neg.words)))\nprint(sentimental_score)\n",
+    "created" : 1495639602640.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2572862711",
+    "id" : "60097EC4",
+    "lastKnownWriteTime" : 1495647212,
+    "last_content_update" : 1495647212110,
+    "path" : "C:/Users/nirva/IdeaProjects/R/Whatsapp chat analysis/WhatsappChat analysis.R",
+    "project_path" : null,
+    "properties" : {
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

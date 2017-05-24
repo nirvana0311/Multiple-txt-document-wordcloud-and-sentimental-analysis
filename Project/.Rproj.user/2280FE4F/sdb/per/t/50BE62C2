@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "require(wordcloud)\n\nfolder=\"C:\\\\Users\\\\nirva\\\\IdeaProjects\\\\R\\\\Jalayer data mining part 5\\\\Project\"\nfileList=list.files(path = folder,pattern = \"*.txt\")\nfileList=paste(folder,\"\\\\\",fileList,sep = \"\")\n\ncorpus=lapply(fileList,FUN = readLines)\ncorpus=lapply(corpus,FUN = paste,collapse = \" \")\n\ncorpus=gsub(\" ?(f|ht)tp(s?)://(.*)[.|/|&|=][a-zA-z0-9|-]*\", \"\", corpus)\ncorpus=gsub(pattern = \"\\\\W\",replacement = \" \",corpus)\ncorpus=gsub(pattern = \"\\\\d\",replacement = \" \",corpus)\ncorpus=tolower(corpus)\ncorpus=removeWords(corpus,stopwords('en'))\ncorpus=gsub(\"\\\\b[A-z]\\\\b{1}\",replacement = \"\",corpus)\ncorpus=stripWhitespace(corpus)\n\ncorpus2=Corpus(VectorSource(corpus))\ntdm=TermDocumentMatrix(corpus2)\ntdmAsMatrix=as.matrix(tdm)\ncolnames(tdmAsMatrix)=c(\"Che\",\"euro\",\"mart\")\ncomparison.cloud(tdmAsMatrix)\n\npos.words=scan(\"positive-words.txt\",what = 'character',comment.char = ';')\nneg.words=scan(\"negative-words.txt\",what = 'character',comment.char = ';')\n\nbagOfWords=str_split(corpus,pattern = \"\\\\s+\")\nlapply(bagOfWords,FUN = function(x){sum(!is.na(match(x,pos.words)))-sum(!is.na(match(x,neg.words)))})\nlapply(bagOfWords,FUN = function(x){sum(!is.na(match(x,neg.words)))})\n\n",
+    "created" : 1495633880660.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "314701084",
+    "id" : "50BE62C2",
+    "lastKnownWriteTime" : 1495646743,
+    "last_content_update" : 1495646744013,
+    "path" : "C:/Users/nirva/IdeaProjects/R/Jalayer data mining part 5/Project/Multiple documents wordcloud and sentimental analysis.R",
+    "project_path" : "Multiple documents wordcloud and sentimental analysis.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
